@@ -3,15 +3,20 @@ import { MAX_RESPONSE_SEGMENTS, MAX_TOKENS } from '~/lib/.server/llm/constants';
 import { CONTINUE_PROMPT } from '~/lib/.server/llm/prompts';
 import { streamText, type Messages, type StreamingOptions } from '~/lib/.server/llm/stream-text';
 import SwitchableStream from '~/lib/.server/llm/switchable-stream';
+import { createScopedLogger, renderLogger } from '~/utils/logger';
 
 export async function action(args: ActionFunctionArgs) {
   return chatAction(args);
 }
 
+const logger = createScopedLogger('Chat');
+
 async function chatAction({ context, request }: ActionFunctionArgs) {
   const { messages } = await request.json<{ messages: Messages }>();
 
   const stream = new SwitchableStream();
+
+  logger.error('Context\n\n', context);
 
   try {
     const options: StreamingOptions = {
