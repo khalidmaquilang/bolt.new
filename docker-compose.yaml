@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"  # Replace with your desired port mapping
+      - "5173:5173"
     volumes:
       - .:/app:cached  # Mount your project directory for live code updates
       - node_modules:/app/node_modules  # Persist node_modules for faster builds
