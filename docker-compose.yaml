@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # Replace with your desired port mapping
+    volumes:
+      - .:/app:cached  # Mount your project directory for live code updates
+      - node_modules:/app/node_modules  # Persist node_modules for faster builds
+    environment:
+      - NODE_ENV=development  # Set your desired environment
+
+volumes:
+  node_modules:
